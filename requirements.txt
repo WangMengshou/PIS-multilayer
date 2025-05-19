@@ -1,0 +1,9 @@
+python==3.11.10
+joblib==1.4.2
+matplotlib==3.10.1
+seaborn==0.13.2 
+networkx==3.4.2
+numpy==2.0.1
+scipy==1.15.2
+torch==2.5.1
+torch-geometric==2.6.1
