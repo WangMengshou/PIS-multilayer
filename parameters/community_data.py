@@ -73,17 +73,23 @@ def generate_node_based_graph(n, m, p_in, community_graph, seed=None):
                 # 根据概率选择连接方式
                 if random.random() < p_in:
                     # 优先选择同一社区内的节点
-                    candidate = random.choice([node for node in G.nodes if communities[node] == communities[i]])
+                    candidates = [node for node in G.nodes if communities[node] == communities[i]]
                 else:
                     # 选择其他社区的节点
                     # 根据社区图的邻居选择目标社区
                     connected_communities = list(community_graph.neighbors(communities[i]))
-
                     # 随机选择一个连接的社区
                     target_community = random.choice(connected_communities)
                     # 在目标社区内选择节点
                     candidates = [node for node in G.nodes if communities[node] == target_community]
+                # 基于节点度来选择
+                degrees = [G.degree(node) for node in candidates]
+                total_degree = sum(degrees)
+                if total_degree == 0:
                     candidate = random.choice(candidates)
+                else:
+                    probabilities = [degree / total_degree for degree in degrees]
+                    candidate = random.choices(candidates, weights=probabilities, k=1)[0]
                 
                 # 确保没有自环和重复邻居
                 if candidate != i and candidate not in neighbors:
