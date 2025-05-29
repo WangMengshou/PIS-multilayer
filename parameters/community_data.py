@@ -103,17 +103,15 @@ def generate_node_based_graph(n, m, p_in, community_graph, seed=None):
 
 if __name__ == "__main__":
     # ---------------流行病参数---------------------------
-    beta, sigma, mu = 0.3, 0.5, 0.1# S-->E,E-->I,I-->S
+    # beta = 0.3 # data_1, data_2;
+    beta = 0.01 # data_3 beta_c = 0.0196
+    sigma, mu =  0.5, 0.1# S-->E,E-->I,I-->S
     lam, delta = 0.5, 0.3 #  U-->A, A-->U
 
     rA = 0.3 # discount factor
 
     xlm, xmh, gl, gm, gh = 1/3, 2/3, 0.1, 0.5, 0.9 # obs-->ga
     kgm, kgh = 0.5, 0.5 # ga-->ma, ga-->ha
-
-    # ---------------初始分布参数-------------------------
-    # SU, SA, EU, EA, IA
-    init_prob = np.array([0.99, 0.0, 0.01, 0.0, 0.0])
 
     # ---------------拓扑连接参数--------------------------
     node_num=5000
@@ -128,7 +126,8 @@ if __name__ == "__main__":
     init_data['P_matrix'] = generate_graph(node_num, Player, seed = 12)
 
 
-    community_num = 10
+    # community_num = 10 # =10  data_1;
+    community_num = 1  # data_2 data_3
     P_community = generate_community_graph(k = community_num, m=2, seed=13)
     P_G, communities = generate_node_based_graph(node_num, m = 3, p_in = 0.9,\
                                                   community_graph = P_community, seed=0)
@@ -144,7 +143,8 @@ if __name__ == "__main__":
 
     # 初始化
     community_infect = np.where(np.array(communities) == 0)[0].tolist()
-    init_prob = np.array([0.95, 0.0, 0.05, 0.0, 0.0])
+    # init_prob = np.array([0.95, 0.0, 0.05, 0.0, 0.0]) # data_1, data_2;
+    init_prob = np.array([0.05, 0.0, 0.95, 0.0, 0.0]) # data_3
     node_features = np.zeros((node_num, len(init_prob)), dtype=float)
     node_features[:,0] = 1.0
     node_features[community_infect, 0] = 0.0
@@ -155,6 +155,6 @@ if __name__ == "__main__":
     
     # ---------------保存数据--------------------------
     current_folder = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(current_folder, 'community_data_1.pkl')
+    file_path = os.path.join(current_folder, 'community_data_3.pkl')
     with open(file_path, 'wb') as f:
         pickle.dump(init_data, f)

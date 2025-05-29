@@ -134,8 +134,8 @@ if __name__ == "__main__":
     # ---------------拓扑连接参数--------------------------
     # node_num=1024
     node_num=5000
-    Player, Ilayer= 'ucm1', 'ucm1'
-    # Player, Ilayer= 'ba', 'ba'
+    Player, Ilayer= 'ucm1', 'ucm1' # inital_data_1.pkl
+    # Player, Ilayer= 'ba', 'ba' #inital_data_2.pkl
 
     # ---------------------参数---------------------------
     init_data = {}
@@ -147,7 +147,7 @@ if __name__ == "__main__":
                                             seed = 123, conk= 4.0)
     init_data['I_matrix'] = generate_graph(node_num, Ilayer, ucm_gamma = 2.5,\
                                             seed = 1234, conk= 5.0)
-
+    # print(1.5 * 2**(1.5))
     # init_data['P_matrix'] = generate_graph(node_num, Player, seed = 12)
     # init_data['I_matrix'] = generate_graph(node_num, Ilayer, seed = 1)
 
@@ -157,8 +157,8 @@ if __name__ == "__main__":
     init_data['init_state'] = initialization(node_num, init_prob, method= 'state')
     init_data['init_prob'] = initialization(node_num, init_prob, method= 'prob')
 
-    # ---------------保存数据--------------------------
-    current_folder = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(current_folder, 'inital_data_1.pkl')
-    with open(file_path, 'wb') as f:
-        pickle.dump(init_data, f)
+    # # ---------------保存数据--------------------------
+    # current_folder = os.path.dirname(os.path.abspath(__file__))
+    # file_path = os.path.join(current_folder, 'inital_data_1.pkl')
+    # with open(file_path, 'wb') as f:
+    #     pickle.dump(init_data, f)
