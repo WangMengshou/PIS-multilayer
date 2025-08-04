@@ -93,7 +93,7 @@ def graph_dynamic_delays(time_scale, method, features, epi_paras, soc_paras, P_e
           ga, ma, ha = update_social_attention_sigmoid(obs_delay, soc_paras, sg, sgm, sgh)
           ga, ma, ha = ga, ma + 0.05, ha +0.05
           # ga, ma, ha = ga, 0*ma, ha
-          ga, ma, ha = ga, ma, 0*ha
+          # ga, ma, ha = ga, ma, 0*ha
           # ga, ma, ha = ga, 0*ma, 0*ha
 
         else:
